@@ -3,11 +3,13 @@ import bbxImage from './assets/bbx.jpeg';
 import LoadingSpinner from './components/LoadingSpinner';
 import DisplayResponse from './components/DisplayResponse';
 import './App.css';
+import MainChatDisplay from './components/MainChatDisplay';
 
 function App() {
   const [prompt, setPrompt] = useState("");
   const [response, setResponse] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [messages, setMessages] = useState([]);
 
   const handleChange = (e) => {
     setPrompt(e.target.value);
@@ -15,7 +17,6 @@ function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setResponse("");
     setIsLoading(true);
     try {
       let req = await fetch("http://localhost:8000/api/prompts/", {
@@ -27,6 +28,14 @@ function App() {
       });
       let res = await req.json();
       setResponse(res.gpt_response);
+      setMessages([...messages,
+      { sender: "User", text: prompt },
+      {
+        sender: "GPT",
+        message: res.gpt_response
+      }
+      ]);
+
     } catch (error) {
       console.error(error);
     }
@@ -55,8 +64,9 @@ function App() {
           />
           <input type="submit" value="Send" />
         </form>
-        <DisplayResponse gptResponse={response} />
+        {/* <DisplayResponse gptResponse={response} /> */}
       </div>
+      <MainChatDisplay messages={messages} />
     </>
   )
 }
