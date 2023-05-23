@@ -72,11 +72,17 @@ textarea.input_prompt {
   transition: border-color 0.25s;
 }
 
-p {
+p.gpt-response {
   width: 100%;
-  background-color: #f0efef;
+  color: #f0efef;
+  background-color: black;
   text-align: justify;
   padding: 1em;
+}
+
+p.user-prompt {
+  color: #f0efef;
+  background-color: rgb(0, 0, 47);
 }
 
 @media (prefers-color-scheme: light) {
