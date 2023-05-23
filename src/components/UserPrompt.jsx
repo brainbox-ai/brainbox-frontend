@@ -2,7 +2,7 @@ const UserPrompt = ({ message }) => {
 
     return (
         <div>
-            <p className="user-prompt">User: {message.text}</p>
+            <p className="user-prompt">User: {message.content}</p>
         </div>
     );
 };

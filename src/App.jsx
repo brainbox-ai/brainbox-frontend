@@ -23,16 +23,18 @@ function App() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          "input_prompt": prompt
+          "input_prompt": prompt,
+          "history": [...messages]
         })
       });
       let res = await req.json();
+      console.log(res)
       setResponse(res.gpt_response);
       setMessages([...messages,
-      { sender: "User", text: prompt },
+      { role: "user", content: prompt },
       {
-        sender: "GPT",
-        message: res.gpt_response
+        role: "assistant",
+        content: res.gpt_response
       }
       ]);
 

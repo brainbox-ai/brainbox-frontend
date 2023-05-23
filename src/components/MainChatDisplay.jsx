@@ -3,10 +3,10 @@ import UserPrompt from "./UserPrompt";
 
 const MainChatDisplay = ({ messages }) => {
     const renderMessages = messages?.map((message, index) => {
-        if (message.sender === "User") {
+        if (message.role === "user") {
             return <UserPrompt key={index} message={message} />
         }
-        if (message.sender === "GPT") {
+        if (message.role === "assistant") {
             return <GPTResponse key={index} message={message} />
         }
     });

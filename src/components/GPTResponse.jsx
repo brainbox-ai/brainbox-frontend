@@ -3,7 +3,7 @@ const GPTResponse = ({ message }) => {
 
     return (
         <div>
-            <p className="gpt-response">GPT: {message.message}</p>
+            <p className="gpt-response">GPT: {message.content}</p>
         </div>
     );
 };
