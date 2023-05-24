@@ -74,15 +74,31 @@ textarea.input_prompt {
 
 p.gpt-response {
   width: 100%;
-  color: #f0efef;
-  background-color: black;
+  color: #0e0e0e;
+  background-color: rgb(238, 238, 238);
   text-align: justify;
+  margin: 0;
+  padding: 1.5em;
+  border-radius: 12px;
+}
+
+div.gpt-response-container {
+  display: flex;
   padding: 1em;
+}
+
+div.user-prompt-container {
+  display: flex;
+  padding: 1em;
+  justify-content: flex-end;
 }
 
 p.user-prompt {
   color: #f0efef;
   background-color: rgb(0, 0, 47);
+  margin: 0;
+  padding: 1.5em;
+  border-radius: 12px;
 }
 
 @media (prefers-color-scheme: light) {

@@ -37,7 +37,7 @@ function App() {
         content: res.gpt_response
       }
       ]);
-
+      setPrompt("")
     } catch (error) {
       console.error(error);
     }
@@ -53,7 +53,7 @@ function App() {
       </div>
       <h1>Brainbox_ai</h1>
       <div className="card">
-        {isLoading && <LoadingSpinner />}
+        <MainChatDisplay messages={messages} />
         <form onSubmit={handleSubmit}>
           <textarea
             type="text"
@@ -64,11 +64,12 @@ function App() {
             value={prompt}
             onChange={handleChange}
           />
-          <input type="submit" value="Send" />
+          <input type="submit" value="Send" ></input>
+          {isLoading && <LoadingSpinner />}
         </form>
         {/* <DisplayResponse gptResponse={response} /> */}
       </div>
-      <MainChatDisplay messages={messages} />
+
     </>
   )
 }
