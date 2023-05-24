@@ -37,7 +37,7 @@ h1 {
   line-height: 1.1;
 }
 
-input {
+input, button {
   border-radius: 8px;
   border: 1px solid transparent;
   margin: 0.1em;
@@ -45,12 +45,16 @@ input {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #cfcbcb;
+  background-color: #747373;
   cursor: pointer;
   transition: border-color 0.25s;
 }
 
-input:hover {
+button {
+  background-color: #980707;
+}
+
+input:hover, button:hover {
   border-color: #646cff;
 }
 

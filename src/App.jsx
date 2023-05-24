@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import bbxImage from './assets/bbx.jpeg';
-import LoadingSpinner from './components/LoadingSpinner';
-import DisplayResponse from './components/DisplayResponse';
-import './App.css';
-import MainChatDisplay from './components/MainChatDisplay';
+import { useState } from "react";
+import bbxImage from "./assets/bbx.jpeg";
+import LoadingSpinner from "./components/LoadingSpinner";
+import DisplayResponse from "./components/DisplayResponse";
+import "./App.css";
+import MainChatDisplay from "./components/MainChatDisplay";
 
 function App() {
   const [prompt, setPrompt] = useState("");
@@ -18,26 +18,73 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    console.log(
+      JSON.stringify({
+        input_prompt: prompt,
+        history: [...messages],
+      })
+    );
     try {
+      if (prompt === "") {
+        throw new Error("Prompt Empty. Please enter a prompt.");
+      }
       let req = await fetch("http://localhost:8000/api/prompts/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          "input_prompt": prompt,
-          "history": [...messages]
-        })
+          input_prompt: prompt,
+          history: [...messages],
+        }),
       });
       let res = await req.json();
-      console.log(res)
+      console.log(res);
       setResponse(res.gpt_response);
-      setMessages([...messages,
-      { role: "user", content: prompt },
-      {
-        role: "assistant",
-        content: res.gpt_response
-      }
+      setMessages([
+        ...messages,
+        { role: "user", content: prompt },
+        {
+          role: "assistant",
+          content: res.gpt_response,
+        },
       ]);
-      setPrompt("")
+      setPrompt("");
+    } catch (error) {
+      console.error(error);
+    }
+    setIsLoading(false);
+  };
+
+  const handleRandomResponse = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    console.log("RANDOM RESPONSE");
+    console.log(
+      JSON.stringify({
+        input_prompt: prompt,
+        history: [...messages],
+      })
+    );
+    try {
+      let req = await fetch("http://localhost:8000/api/RandomCharacterResponse/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          input_prompt: prompt,
+          history: [...messages],
+        }),
+      });
+      let res = await req.json();
+      console.log(res);
+      setResponse(res.gpt_response);
+      setMessages([
+        ...messages,
+        { role: "user", content: prompt },
+        {
+          role: "assistant",
+          content: res.gpt_response,
+        },
+      ]);
+      setPrompt("");
     } catch (error) {
       console.error(error);
     }
@@ -60,18 +107,19 @@ function App() {
             name="prompt"
             className="input_prompt"
             placeholder="ask me something..."
-            autoComplete='off'
+            autoComplete="off"
             value={prompt}
             onChange={handleChange}
           />
-          <input type="submit" value="Send" ></input>
+          <button onClick={handleSubmit}>Submit</button>
+          <button onClick={handleRandomResponse}>Respond Random</button>
           {isLoading && <LoadingSpinner />}
         </form>
+        
         {/* <DisplayResponse gptResponse={response} /> */}
       </div>
-
     </>
-  )
+  );
 }
 
-export default App
+export default App;
