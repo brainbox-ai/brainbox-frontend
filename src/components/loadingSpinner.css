@@ -20,7 +20,7 @@
     width: 3px;
     height: 9px;
     border-radius: 20%;
-    background: #222222;
+    background: #ff0000;
 }
 
 .lds-spinner div:nth-child(1) {
