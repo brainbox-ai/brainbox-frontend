@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 
-const DisplayResponse = ({ gptResponse }) => {
-    const responseArray = gptResponse.split(" ");
+const DisplayResponse = ({ message }) => {
+
+    const responseArray = message?.split(/\s|\n/);
     const [text, setText] = useState("");
     let count = -1;
 
@@ -13,21 +14,21 @@ const DisplayResponse = ({ gptResponse }) => {
                 count++
             );
 
-            if (!responseArray[count]) {
+            if (responseArray[count] === undefined) {
                 clearInterval(displayInterval);
             };
-        }, 150)
+        }, 50)
 
         return () => {
             count = 0;
             clearInterval(displayInterval);
         };
 
-    }, [gptResponse])
+    }, [message])
 
 
     return (
-        <p>{text}</p>
+        <p className="gpt-response">{text}</p>
     );
 };
 
